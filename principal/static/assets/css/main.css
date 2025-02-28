@@ -10,6 +10,20 @@
 # Font & Color Variables
 # Help: https://bootstrapmade.com/color-system/
 --------------------------------------------------------------*/
+.lista-con-iconos {
+  list-style: none; /* Elimina los marcadores de lista predeterminados */
+  padding-left: 0; /* Elimina el espacio de relleno izquierdo */
+}
+
+.lista-con-iconos li {
+  display: flex; /* Permite alinear el icono y el texto en la misma línea */
+  align-items: center; /* Alinea verticalmente el icono y el texto */
+  margin-bottom: 5px; /* Añade un pequeño margen entre los elementos de la lista */
+}
+
+.lista-con-iconos i {
+  margin-right: 10px; /* Añade un pequeño margen entre el icono y el texto */
+}
 /* Fonts */
 :root {
   --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";

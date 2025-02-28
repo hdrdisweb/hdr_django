@@ -1,6 +1,11 @@
 {% extends 'principal/base.html' %}
-{% block title %}Página de inicio{% endblock %}
+
 {% block content %}
-    <h1>¡Bienvenido a mi web Django!</h1>
-    <p>Contenido específico de la página de inicio.</p>
+    {% include 'principal/seccion_hero.html' %}
+    {% include 'principal/seccion_tecnologias.html' %}
+    {% include 'principal/seccion_featured.html' %}
+    {% include 'principal/seccion_precios.html' %}
+    {% include 'principal/seccion_portfolio.html' %}
+    {% include 'principal/seccion_faq.html' %}
+    {% include 'principal/seccion_contacto.html' %}
 {% endblock %}

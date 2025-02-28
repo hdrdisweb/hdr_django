@@ -1,0 +1,61 @@
+{% load static %}
+<section id="contact" class="contact section">
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Contacto</h2>
+        <p>Estoy aquí para ayudarte con todas tus dudas y consultas</p>
+    </div>
+    <div class="container" data-aos="fade" data-aos-delay="100">
+        <div class="row gy-4">
+            <div class="col-lg-4">
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200"><i class="bi bi-geo-alt flex-shrink-0"></i>
+                    <div>
+                        <h3>Dirección</h3>
+                        <p>Rincón de la victoria</p>
+                    </div>
+                </div>
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300"><i class="bi bi-telephone flex-shrink-0"></i>
+                    <div>
+                        <h3>Llámame</h3>
+                        <p>+34 657 197 344</p>
+                    </div>
+                </div>
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400"><i class="bi bi-envelope flex-shrink-0"></i>
+                    <div>
+                        <h3>Email</h3>
+                        <p>hdrdisweb@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <form method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200" id="contactForm">
+                    {% csrf_token %}
+                    <div class="row gy-4">
+                        <div class="col-md-6">
+                            <input type="text" name="name" class="form-control" placeholder="Tu nombre" required id="nameInput">
+                            {{ form.name.errors }}
+                            {{ form.name }}
+                        </div>
+                        <div class="col-md-6 ">
+                            <input type="email" class="form-control" name="email" placeholder="Tu Email" required id="emailInput">
+                            {{ form.email.errors }}
+                            {{ form.email }}
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" name="subject" placeholder="Asunto" required id="subjectInput">
+                            {{ form.subject.errors }}
+                            {{ form.subject }}
+                        </div>
+                        <div class="col-md-12">
+                            <textarea class="form-control" name="message" rows="6" placeholder="Mensaje" required id="messageInput"></textarea>
+                            {{ form.message.errors }}
+                            {{ form.message }}
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <button type="submit">Enviar mensaje</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
