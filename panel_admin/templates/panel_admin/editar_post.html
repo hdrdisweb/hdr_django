@@ -1,0 +1,81 @@
+{% extends 'panel_admin/dashboard.html' %}
+{% load static %}
+{% block content %}
+<div class="page-title dark-background" data-aos="fade" 
+     style="background-image: url({% static 'assets/img/page-title-bg.jpg' %}); background-size: cover; background-position: center;">
+    <div class="container position-relative text-center text-light py-2">
+        <h1 class="fw-bold">Editar Noticia</h1>
+        <p class="lead">Modifica el contenido de la noticia seleccionada.</p>
+
+        <!-- Breadcrumbs -->
+        <nav class="d-flex justify-content-center mt-3">
+            <ol class="breadcrumb bg-transparent mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'admin_dashboard' %}" class="text-light text-decoration-none">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{% url 'lista_posts' %}" class="text-light text-decoration-none">Gestión de Noticias</a>
+                </li>
+                <li class="breadcrumb-item active text-warning" aria-current="page">Editar Noticia</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="container" style="margin-top: 20px; margin-bottom: 80px;">
+    <div class="row">
+        <!-- Menú lateral izquierdo -->
+        <div class="col-md-3">
+            <div class="list-group menu-admin">
+                <a href="{% url 'lista_posts' %}" class="list-group-item list-group-item-action active">
+                    <i class="fas fa-newspaper me-2"></i> Gestión de Noticias
+                </a>
+                <a href="{% url 'lista_usuarios' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-users me-2"></i> Gestión de Usuarios
+                </a>
+                <a href="{% url 'lista_medios' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-photo-video me-2"></i> Gestión de Medios
+                </a>
+                <a href="{% url 'lista_categorias' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-folder me-2"></i> Gestión de Categorías
+                </a>
+            </div>
+        </div>
+
+        <!-- Formulario de edición de noticia -->
+        <div class="col-md-9">
+            <div class="card p-4 shadow-lg">
+                <h2 class="mb-4">Editar Noticia: {{ post.titulo }}</h2>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Título</label>
+                        {{ form.titulo }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Contenido</label>
+                        {{ form.contenido }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Categorías</label>
+                        {{ form.categorias }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Imagen Destacada</label>
+                        {{ form.imagen_destacada }}
+                    </div>
+                    <div class="mb-3 form-check">
+                        {{ form.publicado }}
+                        <label class="form-check-label">Publicado</label>
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                    <a href="{% url 'lista_posts' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Volver
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

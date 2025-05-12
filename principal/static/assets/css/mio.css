@@ -1,0 +1,53 @@
+/* arrelga los meta de lista_entradas.html */
+.meta-text {
+    font-size: 11px;
+}
+
+.meta-text i, .meta-text span {
+    margin-right: 5px; /* Espacio entre ícono y texto */
+}
+
+.meta-text span::after {
+    content: "|";
+    margin-left: 8px; /* Espacio después del texto */
+    color: gray; /* Puedes cambiar el color del separador */
+}
+
+.meta-text span:last-child::after {
+    content: ""; /* Elimina el último separador */
+}
+/* FIN arrelga los meta de lista_entradas.html */
+
+/* sidebar para que sea sticky lista_entradas.html */
+.sticky-sidebar {
+    position: sticky;
+    top: 100px; /* Espaciado desde la parte superior */
+    height: fit-content; /* Evita que el sidebar crezca demasiado */
+}
+/* FIN sidebar para que sea sticky lista_entradas.html */
+
+/* dashboard.html sobra del cursor*/
+.menu-admin .list-group-item:hover {
+    background-color: rgba(0, 0, 0, 0.2); !important;/* Sombra más intensa */
+    transition: background-color 0.3s ease-in-out;
+}
+/* FIN dashboard.html sobra del cursor*/
+
+/* Sticky sobre menu izquierdo de dashboard*/
+.menu-admin {
+    position: sticky;
+    top: 100px; /* Ajusta según la altura del navbar */
+    z-index: 1000; /* Para que quede sobre otros elementos */
+}
+
+/* FIN Sticky sobre menu izquierdo de dashboard**/
+
+/* Datatables*/
+#datatable {
+    font-size: 13px;  /* Cambia el tamaño del texto */
+}
+
+#datatable th, #datatable td {
+    padding: 8px; /* Reduce el espacio entre celdas */
+}
+/* FIN Datatables*/

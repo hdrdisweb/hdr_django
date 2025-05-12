@@ -1,0 +1,92 @@
+{% extends 'principal/base.html' %}
+{% load static %} 
+{% block title %}Panel de Administración{% endblock %}
+
+{% block content %}
+<div class="page-title dark-background" data-aos="fade" 
+     style="background-image: url({% static 'assets/img/page-title-bg.jpg' %}); background-size: cover; background-position: center;">
+    <div class="container position-relative text-center text-light py-2">
+        <h1 class="fw-bold">Panel de Administración</h1>
+        <p class="lead">Administra y gestiona el contenido del sitio.</p>
+
+        <!-- Breadcrumbs -->
+        <nav class="d-flex justify-content-center mt-3">
+            <ol class="breadcrumb bg-transparent mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'admin_dashboard' %}" class="text-light text-decoration-none">Inicio</a>
+                </li>
+                <li class="breadcrumb-item active text-warning" aria-current="page">Panel de Administración</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container mt-4" style="margin-top: 20px; margin-bottom: 80px;">
+    <div class="row">
+        <!-- Menú lateral izquierdo -->
+        <div class="col-md-3">
+            <div class="list-group menu-admin">
+                <a href="{% url 'lista_posts' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-newspaper me-2"></i> Gestión de Noticias
+                </a>
+                <a href="{% url 'lista_usuarios' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-users me-2"></i> Gestión de Usuarios
+                </a>
+                <a href="{% url 'lista_medios' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-photo-video me-2"></i> Gestión de Medios
+                </a>
+                <a href="{% url 'lista_categorias' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-folder me-2"></i> Gestión de Categorías
+                </a>
+            </div>
+        </div>
+        
+                <!-- Contenido principal con atajos rápidos -->
+                <div class="col-md-9">
+                    <div class="card p-4 shadow-lg">
+                      <!-- Atajos rápidos -->
+                      <h5 class="text-center">🚀 Atajos Rápidos</h5>
+                        <div class="d-flex flex-wrap justify-content-center gap-3 mt-3">
+                            <a href="{% url 'lista_posts' %}" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i> Nueva Noticia
+                            <a href="#" class="btn btn-secondary">
+                                <i class="fas fa-plus me-2"></i> Nueva Categoría
+                            </a>
+                            <a href="#" class="btn btn-success">
+                                 <i class="fas fa-user-plus me-2"></i> Nuevo Usuario
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Últimas noticias publicadas -->
+    <h5 class="mt-5">📰 Últimas Noticias Publicadas</h5>
+    <ul class="list-group mb-4">
+        {% for noticia in ultimas_noticias %}
+            <li class="list-group-item">
+                <a href="{% url 'detalle_entrada' noticia.slug %}" class="text-decoration-none">
+                    {{ noticia.titulo }}
+                </a>
+                <span class="text-muted d-block" style="font-size: 12px;">Publicado el {{ noticia.fecha_publicacion|date:"d M Y" }}</span>
+            </li>
+        {% empty %}
+            <li class="list-group-item text-muted">No hay noticias recientes.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Últimos usuarios registrados -->
+    <h5>👥 Últimos Usuarios Registrados</h5>
+    <ul class="list-group">
+        {% for usuario in ultimos_usuarios %}
+            <li class="list-group-item">
+                <i class="fas fa-user-circle me-2"></i> {{ usuario.username }}
+                <span class="text-muted d-block" style="font-size: 12px;">Registrado el {{ usuario.date_joined|date:"d M Y" }}</span>
+            </li>
+        {% empty %}
+            <li class="list-group-item text-muted">No hay usuarios recientes.</li>
+        {% endfor %}
+    </ul>
+</div>
+                </div> <!-- Cierra col-md-9 -->
+            </div> <!-- Cierra row -->
+        </div> <!-- Cierra container -->
+
+{% endblock %}

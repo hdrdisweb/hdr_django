@@ -1,0 +1,58 @@
+{% extends 'panel_admin/dashboard.html' %}
+{% load static %}
+{% block content %}
+<div class="page-title dark-background" data-aos="fade" 
+     style="background-image: url({% static 'assets/img/page-title-bg.jpg' %}); background-size: cover; background-position: center;">
+    <div class="container position-relative text-center text-light py-2">
+        <h1 class="fw-bold">Eliminar Medio</h1>
+        <p class="lead">¿Estás seguro de que deseas eliminar este medio?</p>
+
+        <nav class="d-flex justify-content-center mt-3">
+            <ol class="breadcrumb bg-transparent mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'admin_dashboard' %}" class="text-light text-decoration-none">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{% url 'lista_medios' %}" class="text-light text-decoration-none">Gestión de Medios</a>
+                </li>
+                <li class="breadcrumb-item active text-warning" aria-current="page">Eliminar Medio</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 20px; margin-bottom: 80px;">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group menu-admin">
+                <a href="{% url 'lista_posts' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-newspaper me-2"></i> Gestión de Noticias
+                </a>
+                <a href="{% url 'lista_usuarios' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-users me-2"></i> Gestión de Usuarios
+                </a>
+                <a href="{% url 'lista_medios' %}" class="list-group-item list-group-item-action active">
+                    <i class="fas fa-photo-video me-2"></i> Gestión de Medios
+                </a>
+                <a href="{% url 'lista_categorias' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-folder me-2"></i> Gestión de Categorías
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card p-4 shadow-lg">
+                <h2 class="mb-4">Eliminar Medio</h2>
+                <p>¿Estás seguro de que quieres eliminar el medio <strong>"{{ medio.nombre }}"</strong>?</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt me-2"></i> Eliminar
+                    </button>
+                    <a href="{% url 'lista_medios' %}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

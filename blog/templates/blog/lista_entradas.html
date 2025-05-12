@@ -1,0 +1,123 @@
+{% extends 'principal/base.html' %}
+{% load static %}
+{% block title %}Lista de Entradas{% endblock %}
+
+{% block content %}
+<div class="page-title dark-background" data-aos="fade" 
+     style="background-image: url({% static 'assets/img/page-title-bg.jpg' %}); background-size: cover; background-position: center;">
+    <div class="container position-relative text-center text-light py-2">
+        <h1 class="fw-bold">Blog de Noticias</h1>
+        <p class="lead">Explora nuestras últimas noticias y mantente informado.</p>
+
+        <!-- Breadcrumbs mejorado -->
+        <nav class="d-flex justify-content-center mt-3">
+            <ol class="breadcrumb bg-transparent mb-0">
+                <li class="breadcrumb-item">
+                <a href="{% url 'inicio' %}" class="text-light text-decoration-none">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                <a href="{% url 'lista_entradas' %}" class="text-light text-decoration-none">Blog</a>
+                </li>
+                <li class="breadcrumb-item active text-warning" aria-current="page">{{ categoria.nombre }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 20px; margin-bottom: 80px;">
+    <div class="row gy-4">
+        <div class="col-lg-8">
+            <h2 class="mb-4">
+                {% if categoria %}
+                    Noticias en la categoría: "{{ categoria.nombre }}"
+                {% else %}
+                    ¡Explora nuestro Blog de Noticias!
+                {% endif %}
+            </h2>
+        {% for entrada in entradas %}
+            <div class="card mb-4 shadow">
+                <div class="card-body">
+                    {% if entrada.imagen_destacada %}
+                    <img src="{{ entrada.imagen_destacada.url }}" alt="{{ entrada.titulo }}" class="img-fluid mb-3">
+                    {% endif %}
+                    <h3 class="card-title">
+                        <a href="{% url 'detalle_entrada' entrada.slug %}">{{ entrada.titulo }}</a>
+                    </h3>
+                    <p class="text-muted meta-text">
+                        <i class="fas fa-user"></i> <span>{{ entrada.autor }}</span>
+                        <i class="fas fa-calendar-alt"></i> <span>{{ entrada.fecha_publicacion }}</span>
+                        <i class="fas fa-folder"></i> 
+                        {% for categoria in entrada.categorias.all %}
+                            <span>{{ categoria.nombre }}</span>
+                        {% endfor %}
+                    </p>
+                    <p class="card-text">{{ entrada.contenido|truncatewords:50 }}</p>
+                    <a href="{% url 'detalle_entrada' entrada.slug %}" class="btn btn-primary btn-sm">Leer más</a>
+                </div>
+            </div>
+            {% empty %}
+            <p>No hay noticias disponibles.</p>
+            {% endfor %}
+            
+            <!-- Paginación -->
+            {% if entradas.paginator.num_pages > 1 %}
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if entradas.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">&laquo;&laquo;</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ entradas.previous_page_number }}">&laquo;</a>
+                    </li>
+                    {% endif %}
+                    {% for num in entradas.paginator.page_range %}
+                    {% if num >= entradas.number|add:-2 and num <= entradas.number|add:2 %}
+                    <li class="page-item {% if entradas.number == num %}active{% endif %}">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if entradas.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ entradas.next_page_number }}">&raquo;</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ entradas.paginator.num_pages }}">&raquo;&raquo;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="col-lg-4" style="margin-top: 83px;">
+            <div class="shadow sidebar-container sticky-sidebar" style="padding: 30px;">
+                <!-- Buscador -->
+                <div class="sidebar-section">
+                    <h5>Buscar</h5>
+                    <form action="{% url 'buscar_entradas' %}" method="GET">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Buscar...">
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Categorías -->
+                <div class="sidebar-section" style="margin-top: 30px;">
+                    <h5>Categorías</h5>
+                    <ul class="list-unstyled">
+                        {% for categoria in categorias %}
+                        <li><a href="{% url 'lista_categoria' categoria.slug %}"><i class='fa-eye far' style='margin-right: 5px;'></i> {{ categoria.nombre }} </a></li>
+                        {% empty %}
+                        <li>No hay categorías disponibles.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

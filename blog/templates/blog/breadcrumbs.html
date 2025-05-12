@@ -1,0 +1,17 @@
+<!-- Breadcrumbs con categoría y título de la noticia -->
+<nav class="d-flex justify-content-center mt-3">
+    <ol class="breadcrumb bg-transparent mb-0">
+        <li class="breadcrumb-item">
+            <a href="{% url 'inicio' %}" class="text-light text-decoration-none">Inicio</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'lista_entradas' %}" class="text-light text-decoration-none">Blog</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'lista_categoria' entrada.categorias.first.slug %}" class="text-light text-decoration-none">
+                {{ entrada.categorias.first.nombre }}
+            </a>
+        </li>
+        <li class="breadcrumb-item active text-warning" aria-current="page">{{ entrada.titulo }}</li>
+    </ol>
+</nav>

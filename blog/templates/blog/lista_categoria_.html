@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Categoría: {{ categoria.nombre }}</title>
+</head>
+<body>
+    <h1>Categoría: {{ categoria.nombre }}</h1>
+    {% for entrada in entradas %}
+    <div>
+        <h2><a href="{% url 'detalle_entrada' slug=entrada.slug %}">{{ entrada.titulo }}</a></h2>
+        <p>{{ entrada.fecha_publicacion }}</p>
+        {% if entrada.imagen_destacada %}
+        <img src="{{ entrada.imagen_destacada.url }}" alt="{{ entrada.titulo }}" style="max-width: 300px;">
+        {% endif %}
+        <p>{{ entrada.contenido|truncatewords:50 }}</p>
+        <a href="{% url 'detalle_entrada' slug=entrada.slug %}">Leer más...</a>
+    </div>
+    {% endfor %}
+</body>
+</html>

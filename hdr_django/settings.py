@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os  # Add this line
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'principal', #Agregamos nuestra app.
+    'blog', #agregamos el blog.
+    'panel_admin', #agregamos nuestro panel de admin
+    'django_ckeditor_5',  # ✅ Nueva versión de CKEditor 5
+    
     
 ]
 
@@ -119,6 +123,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Configuración para archivos multimedia
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -132,3 +141,34 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'hdrdisweb@gmail.com'  # Reemplaza con tu correo
 EMAIL_HOST_PASSWORD = 'HDRdisweb@gmail'  # Reemplaza con tu contraseña
 DEFAULT_FROM_EMAIL = 'hdrdisweb@gmail.com'  # Reemplaza con tu correo
+
+# login para admin_panel
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/admin-panel/'
+LOGOUT_REDIRECT_URL = '/'
+
+# ✅ Nueva versión de CKEditor 5
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        "block_toolbar": [
+            "heading", "|",
+            "bold", "italic", "underline", "strike", "|",
+            "numberedList", "bulletedList", "|",
+            "link", "imageUpload", "|",
+            "undo", "redo",
+        ],
+        "image": {
+            "toolbar": [
+                "imageTextAlternative", "|",
+                "imageStyle:alignLeft", "imageStyle:alignRight", "imageStyle:alignCenter"
+            ],
+        },
+        "upload": {
+            "urls": {
+                "image": "/ckeditor5/image_upload/",
+                "file": "/ckeditor5/file_upload/",
+            },
+        },
+    }
+}
+

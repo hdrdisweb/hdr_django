@@ -1,0 +1,41 @@
+{% extends 'panel_admin/dashboard.html' %}
+{% load static %}
+{% block content %}
+<div class="page-title dark-background" data-aos="fade" 
+     style="background-image: url({% static 'assets/img/page-title-bg.jpg' %}); background-size: cover; background-position: center;">
+    <div class="container position-relative text-center text-light py-2">
+        <h1 class="fw-bold">Eliminar Categoría</h1>
+        <p class="lead">¿Estás seguro de que deseas eliminar esta categoría?</p>
+
+        <nav class="d-flex justify-content-center mt-3">
+            <ol class="breadcrumb bg-transparent mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'admin_dashboard' %}" class="text-light text-decoration-none">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{% url 'lista_categorias' %}" class="text-light text-decoration-none">Gestión de Categorías</a>
+                </li>
+                <li class="breadcrumb-item active text-warning" aria-current="page">Eliminar Categoría</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 20px; margin-bottom: 80px;">
+    <div class="row">
+        <div class="col-md-9 mx-auto">
+            <div class="card p-4 shadow-lg">
+                <h2 class="mb-4">Eliminar Categoría</h2>
+                <p>¿Estás seguro de que quieres eliminar la categoría <strong>"{{ categoria.nombre }}"</strong>?</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt me-2"></i> Eliminar
+                    </button>
+                    <a href="{% url 'lista_categorias' %}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

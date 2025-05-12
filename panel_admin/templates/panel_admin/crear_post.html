@@ -1,0 +1,126 @@
+{% extends 'panel_admin/dashboard.html' %}
+{% load static %}
+{% block content %}
+<div class="page-title dark-background" data-aos="fade" 
+     style="background-image: url({% static 'assets/img/page-title-bg.jpg' %}); background-size: cover; background-position: center;">
+    <div class="container position-relative text-center text-light py-2">
+        <h1 class="fw-bold">Crear Nueva Noticia</h1>
+        <p class="lead">Añade una nueva noticia al blog.</p>
+
+        <!-- Breadcrumbs -->
+        <nav class="d-flex justify-content-center mt-3">
+            <ol class="breadcrumb bg-transparent mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'admin_dashboard' %}" class="text-light text-decoration-none">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{% url 'lista_posts' %}" class="text-light text-decoration-none">Gestión de Noticias</a>
+                </li>
+                <li class="breadcrumb-item active text-warning" aria-current="page">Crear Noticia</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="container" style="margin-top: 20px; margin-bottom: 80px;">
+    <div class="row">
+        <!-- Menú lateral izquierdo -->
+        <div class="col-md-3">
+            <div class="list-group menu-admin">
+                <a href="{% url 'lista_posts' %}" class="list-group-item list-group-item-action active">
+                    <i class="fas fa-newspaper me-2"></i> Gestión de Noticias
+                </a>
+                <a href="{% url 'lista_usuarios' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-users me-2"></i> Gestión de Usuarios
+                </a>
+                <a href="{% url 'lista_medios' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-photo-video me-2"></i> Gestión de Medios
+                </a>
+                <a href="{% url 'lista_categorias' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-folder me-2"></i> Gestión de Categorías
+                </a>
+            </div>
+        </div>
+
+        <!-- Formulario de creación de noticia -->
+        <div class="col-md-9">
+            <div class="card p-4 shadow-lg">
+                
+                <form method="post" enctype="multipart/form-data" class="row g-3"> 
+    {% csrf_token %}
+
+    <div class="me-auto ms-auto mt-5 row">
+        <!-- Categoría -->
+        <div class="align-items-baseline col-lg-3 col-md-4 d-inline-flex"> 
+            <div class="mb-3" style="font-size: 10px;"> 
+                <label for="{{ form.categorias.id_for_label }}">Categoría</label>                 
+                {{ form.categorias }}
+            </div>             
+        </div>
+        
+        <!-- Estado (Publicado o no) -->
+        <div class="align-items-baseline col-lg-3 col-md-4 d-inline-flex"> 
+            <div class="mb-3" style="font-size: 10px;"> 
+                <label for="{{ form.publicado.id_for_label }}">Estado</label>
+                <div class="form-check"> 
+                    {{ form.publicado }}
+                </div>                 
+            </div>             
+        </div>
+    </div>
+
+    <!-- Título -->
+    <div class="me-auto ms-auto mt-5 row">
+        <div class="align-items-baseline col-lg-12 col-md-4 d-inline-flex mt-1"> 
+            <div class="mb-3 vw-100"> 
+                <label for="{{ form.titulo.id_for_label }}" class="form-label" style="font-size: 13px;">Título:</label>                 
+                {{ form.titulo }}
+            </div>             
+        </div>
+    </div>
+
+    <!-- Slug -->
+    <div class="me-auto ms-auto row">
+        <div class="col-md-12">
+            <div class="mb-3"> 
+                <label for="{{ form.slug.id_for_label }}" class="form-label" style="font-size: 13px;">Slug:</label>                 
+                {{ form.slug }}
+            </div>             
+        </div>
+    </div>
+
+    <!-- Contenido -->
+    <div class="me-auto ms-auto row">
+        <div class="col-md-12">
+            <div class="mb-3"> 
+                <label for="{{ form.contenido.id_for_label }}" class="form-label" style="font-size: 13px;">Contenido:</label>                 
+                {{ form.contenido }}
+            </div>             
+        </div>
+    </div>
+
+    <!-- Imagen destacada -->
+    <div class="me-auto ms-auto row">
+        <div class="align-items-baseline col-lg-11 col-md-4 d-inline-flex mb-1 mt-1"> 
+            <label class="me-2" style="font-size: 10px;">Imagen destacada:</label>
+            {{ form.imagen_destacada }}
+        </div>
+    </div>     
+
+    <!-- Botones -->
+    <div class="row">
+        <div class="col-12 mt-5 text-center"> 
+            <button class="btn btn-primary btn-sm" type="submit" style="font-size: 11px;">
+                <i class="fa-save fas me-2"></i>Publicar
+            </button>
+            <button class="btn btn-secondary btn-sm" type="reset" style="font-size: 11px;">
+                <i class="fa-arrow-alt-circle-left fas me-2"></i>Cancelar
+            </button>             
+        </div>
+    </div>     
+</form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
